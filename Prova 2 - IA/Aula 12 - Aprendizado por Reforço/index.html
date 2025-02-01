@@ -1,0 +1,551 @@
+
+<!doctype html>
+<html lang="pt" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.1">
+    
+    
+      
+        <title>Aula 12 Aprendizado por Reforço - Resumos UFMG</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.a40c8224.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-definicao-do-problema" class="md-skip">
+          Ir para o conteúdo
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabeçalho">
+    <a href="../.." title="Resumos UFMG" class="md-header__button md-logo" aria-label="Resumos UFMG" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Resumos UFMG
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Aula 12   Aprendizado por Reforço
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Buscar" placeholder="Buscar" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Pesquisar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpar" aria-label="Limpar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando a pesquisa
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegação" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Resumos UFMG" class="md-nav__button md-logo" aria-label="Resumos UFMG" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Resumos UFMG
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Início
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Matérias
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Matérias
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../filosofia.md" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    IA
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Índice">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Índice
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-definicao-do-problema" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Definição do Problema
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-quando-usar-o-aprendizado-por-reforco" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Quando Usar o Aprendizado por Reforço?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-principais-abordagens" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Principais Abordagens
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-aprendizado-temporal-difference-td-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Aprendizado Temporal Difference (TD Learning)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-funcao-de-valor-e-q-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Função de Valor e Q-Function
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-q-learning" class="md-nav__link">
+    <span class="md-ellipsis">
+      6. Q-Learning
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-exploracao-vs-exploracao-exploration-vs-exploitation" class="md-nav__link">
+    <span class="md-ellipsis">
+      7. Exploração vs Exploração (Exploration vs Exploitation)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-exemplos-de-aplicacao" class="md-nav__link">
+    <span class="md-ellipsis">
+      8. Exemplos de Aplicação
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumo-geral" class="md-nav__link">
+    <span class="md-ellipsis">
+      Resumo Geral
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<p><strong>Aprendizado por Reforço (Reinforcement Learning - RL)</strong> é um paradigma onde <strong>agentes aprendem ao interagir com o ambiente</strong>, tomando <strong>ações</strong> e recebendo <strong>recompensas</strong> de acordo com os resultados.  </p>
+<p>📌 <strong>Objetivo</strong>: Aprender a política <strong>ótima</strong> de ações que <strong>maximiza a recompensa total</strong> ao longo do tempo.</p>
+<hr />
+<h2 id="1-definicao-do-problema">1. <strong>Definição do Problema</strong></h2>
+<p>O Aprendizado por Reforço pode ser modelado como um <strong>Processo de Decisão de Markov (MDP)</strong>.</p>
+<p>📌 <strong>Elementos do RL</strong>:
+✅ <strong>Estados (S)</strong> → Representação do ambiente em um dado momento.<br />
+✅ <strong>Ações (A)</strong> → Conjunto de escolhas possíveis para o agente.<br />
+✅ <strong>Recompensas (R)</strong> → Feedback do ambiente após uma ação.<br />
+✅ <strong>Política (π)</strong> → Regra que define a <strong>ação tomada</strong> para cada estado.<br />
+✅ <strong>Modelo de Transição (T)</strong> → Probabilidade de transição entre estados (pode ser desconhecido).  </p>
+<p>💡 <strong>Diferença do Aprendizado Supervisionado</strong>:<br />
+- No <strong>supervisionado</strong>, há um conjunto de <strong>dados rotulados</strong>.<br />
+- No <strong>reforço</strong>, <strong>o agente descobre a resposta ao interagir com o ambiente</strong>.  </p>
+<hr />
+<h2 id="2-quando-usar-o-aprendizado-por-reforco">2. <strong>Quando Usar o Aprendizado por Reforço?</strong></h2>
+<p>📌 O RL é indicado quando:
+✅ <strong>Os dados possuem dependência temporal</strong> (sequências ou trajetórias).<br />
+✅ <strong>As decisões do agente influenciam estados futuros</strong>.<br />
+✅ <strong>O modelo do ambiente não é totalmente conhecido</strong>.  </p>
+<p>💡 <strong>Exemplo</strong>: Treinar um <strong>robô para andar</strong> → O robô aprende quais movimentos são mais eficientes para evitar quedas e avançar.</p>
+<hr />
+<h2 id="3-principais-abordagens">3. <strong>Principais Abordagens</strong></h2>
+<p>O RL pode ser resolvido por diferentes abordagens:</p>
+<p>✅ <strong>Programação Dinâmica</strong> → Se o modelo do ambiente for conhecido, pode-se calcular a política ótima com:
+   - <strong>Value Iteration</strong>
+   - <strong>Policy Iteration</strong></p>
+<p>✅ <strong>Métodos Baseados em Amostragem</strong> (quando o modelo não é conhecido):
+   - <strong>Monte Carlo</strong> → Aprendizado a partir de episódios completos.
+   - <strong>Temporal Difference (TD Learning)</strong> → Atualiza estimativas de recompensa ao longo do tempo.
+     - <strong>Q-Learning</strong> (off-policy)
+     - <strong>SARSA</strong> (on-policy)</p>
+<p>✅ <strong>Aproximação de Funções</strong>:
+   - <strong>Modelos Lineares</strong>
+   - <strong>Deep Reinforcement Learning (Deep RL)</strong> (usando redes neurais).</p>
+<hr />
+<h2 id="4-aprendizado-temporal-difference-td-learning">4. <strong>Aprendizado Temporal Difference (TD Learning)</strong></h2>
+<p>📌 <strong>TD Learning</strong> combina elementos de:
+✅ <strong>Monte Carlo</strong> → Atualiza valores com base na experiência.<br />
+✅ <strong>Programação Dinâmica</strong> → Utiliza estimativas para aprender valores de estado.</p>
+<p>A atualização é feita pela <strong>diferença temporal</strong> entre a previsão e a recompensa observada.</p>
+<p>📌 <strong>Fórmula do TD Update</strong>:</p>
+<p>$$
+V(s) \leftarrow V(s) + \alpha \left[ R + \gamma V(s') - V(s) \right]
+$$</p>
+<p>Onde:
+- <strong>$V(s)$</strong> → Valor estimado do estado atual.
+- <strong>$\alpha$</strong> → Taxa de aprendizado.
+- <strong>$R$</strong> → Recompensa imediata.
+- <strong>$\gamma$</strong> → Fator de desconto (valorização de recompensas futuras).
+- <strong>$V(s')$</strong> → Valor estimado do próximo estado.</p>
+<p>💡 <strong>O erro de TD mede a diferença entre o valor atual e a expectativa futura</strong>.</p>
+<hr />
+<h2 id="5-funcao-de-valor-e-q-function">5. <strong>Função de Valor e Q-Function</strong></h2>
+<p>📌 <strong>Função de Valor de Estado $V(s)$</strong>: Mede <strong>o valor esperado</strong> das recompensas ao seguir uma política <strong>π</strong> a partir do estado <strong>s</strong>.</p>
+<p>$$
+V^\pi(s) = \mathbb{E} \left[ \sum_{t=0}^{\infty} \gamma^t R_t \mid s_0 = s \right]
+$$</p>
+<p>📌 <strong>Função de Valor de Ações $Q(s,a)$</strong>: Mede <strong>o valor esperado</strong> ao escolher uma ação <strong>a</strong> em um estado <strong>s</strong>, seguindo uma política <strong>π</strong>.</p>
+<p>$$
+Q^\pi(s,a) = \mathbb{E} \left[ \sum_{t=0}^{\infty} \gamma^t R_t \mid s_0 = s, a_0 = a \right]
+$$</p>
+<p>💡 <strong>Diferença</strong>:
+✅ <strong>$V(s)$</strong> → Mede o <strong>valor do estado</strong>.<br />
+✅ <strong>$Q(s,a)$</strong> → Mede o <strong>valor de uma ação</strong> em um estado.</p>
+<hr />
+<h2 id="6-q-learning">6. <strong>Q-Learning</strong></h2>
+<p>O <strong>Q-Learning</strong> é um dos algoritmos mais usados em RL. Ele permite aprender <strong>Q(s, a)</strong> <strong>sem precisar conhecer o modelo de transição</strong>.</p>
+<p>📌 <strong>Fórmula de Atualização do Q-Learning</strong>:</p>
+<p>$$
+Q(s, a) \leftarrow Q(s, a) + \alpha \left[ R + \gamma \max_{a'} Q(s', a') - Q(s, a) \right]
+$$</p>
+<p>💡 <strong>Características</strong>:
+✅ <strong>Off-policy</strong> → Aprende com a <strong>melhor ação futura possível</strong> e não apenas com as ações tomadas pelo agente.<br />
+✅ <strong>Model-free</strong> → Não precisa conhecer a função de transição do ambiente.  </p>
+<p>📌 <strong>Passos do Algoritmo Q-Learning</strong>:
+1. Inicializa <strong>$Q(s,a)$</strong> para todos os estados e ações.
+2. No estado <strong>s</strong>, escolhe uma ação <strong>a</strong>.
+3. Executa <strong>a</strong>, recebe <strong>recompensa R</strong> e observa <strong>novo estado s'</strong>.
+4. Atualiza <strong>$Q(s,a)$</strong> usando a equação acima.
+5. Repete até convergência.</p>
+<hr />
+<h2 id="7-exploracao-vs-exploracao-exploration-vs-exploitation">7. <strong>Exploração vs Exploração (Exploration vs Exploitation)</strong></h2>
+<p>Para aprender bem, o agente precisa equilibrar:
+✅ <strong>Exploração (Exploration)</strong> → Testar novas ações para descobrir melhores estratégias.<br />
+✅ <strong>Exploração (Exploitation)</strong> → Escolher as melhores ações já conhecidas.</p>
+<p>📌 <strong>Técnica $\epsilon$-Greedy</strong>:
+6. Com probabilidade <strong>$\epsilon$</strong>, escolhe uma ação aleatória (exploração).
+7. Com probabilidade <strong>$1 - \epsilon$</strong>, escolhe <strong>a melhor ação conhecida</strong> (exploração).</p>
+<p>💡 <strong>Inicialmente $\epsilon$ deve ser alto para mais exploração, e depois diminuir para mais exploração.</strong></p>
+<hr />
+<h2 id="8-exemplos-de-aplicacao">8. <strong>Exemplos de Aplicação</strong></h2>
+<p>✅ <strong>Grid World</strong> → O agente aprende a navegar em um ambiente para alcançar <strong>a maior recompensa</strong>.<br />
+✅ <strong>Pac-Man</strong> → O agente aprende estratégias para evitar fantasmas e maximizar a pontuação.<br />
+✅ <strong>Robótica</strong> → Treinamento de robôs para locomoção eficiente.<br />
+✅ <strong>Financeiro</strong> → Algoritmos que aprendem estratégias de negociação.<br />
+✅ <strong>Jogos</strong> → Aprendizado de IA em <strong>Xadrez, Go, Starcraft e Dota 2</strong>.</p>
+<hr />
+<h1 id="resumo-geral"><strong>Resumo Geral</strong></h1>
+<p>📌 <strong>Aprendizado por Reforço (RL)</strong>:
+- Baseado em <strong>interação com o ambiente</strong> e <strong>recebimento de recompensas</strong>.
+- Pode ser modelado como um <strong>MDP</strong>.
+- Objetivo: <strong>Encontrar a melhor política $\pi^*$ para maximizar as recompensas</strong>.</p>
+<p>📌 <strong>Principais Técnicas</strong>:
+✅ <strong>Temporal Difference Learning</strong> → Atualiza valores de estado com base na diferença entre previsões e recompensas reais.<br />
+✅ <strong>Q-Learning</strong> → Algoritmo <strong>off-policy</strong>, baseado na atualização da função de valor de ação.<br />
+✅ <strong>Exploração vs Exploração</strong> → Estratégias como <strong>$\epsilon$-Greedy</strong> balanceiam descoberta e aproveitamento.</p>
+<p>🚀 <strong>Aplicações práticas incluem</strong>: Jogos, robótica, finanças, assistentes inteligentes e mu</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": [], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copiado para \u00e1rea de transfer\u00eancia", "clipboard.copy": "Copiar para \u00e1rea de transfer\u00eancia", "search.result.more.one": "Mais 1 nesta p\u00e1gina", "search.result.more.other": "Mais # nesta p\u00e1gina", "search.result.none": "Nenhum resultado encontrado", "search.result.one": "1 resultado encontrado", "search.result.other": "# resultados encontrados", "search.result.placeholder": "Digite para iniciar a busca", "search.result.term.missing": "Ausente", "select.version": "Selecione a vers\u00e3o"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.5090c770.min.js"></script>
+      
+    
+  </body>
+</html>
